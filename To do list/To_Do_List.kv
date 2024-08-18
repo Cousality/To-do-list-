@@ -1,0 +1,95 @@
+WindowManager:
+    MainScreen:
+    DailyScreen:
+    TaskDetailScreen:
+
+
+<MainScreen>:
+    name: "Main_Screen"
+
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Main Screen"
+            font_size:20
+            pos:(0,200)
+        Button:
+            size_hint_y: None
+            text: "Planner"
+            font_size:20
+            height: 100
+            on_release: 
+                app.root.current = "Daily_Screen"
+                root.manager.transition.direction = "left"
+                
+<DailyScreen>:
+    name: "Daily_Screen"
+
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Planner"
+            font_size:20
+            size_hint_y: None
+            height: 50
+        TextInput:
+            id: text_input
+            hint_text: 'Add a new task'
+            size_hint_y: None
+            multiline:False
+            height: 50
+
+
+        Button:
+            text: "Add"
+            size_hint_y: None
+            height: 50
+            on_release: 
+                root.add_task()
+
+        ScrollView:
+            GridLayout:
+                id: task_list
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+        Button:
+            text: "Delete All"
+            size_hint_y: None
+            height: 50
+            on_release: 
+                root.delete_all()
+
+        Button:
+            text: "Back"
+            size_hint_y: None
+            height: 50
+            on_release: 
+                app.root.current = "Main_Screen"
+                root.manager.transition.direction = "right"
+<TaskDetailScreen>:
+    name: "TaskDetail_Screen"
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Task Details"
+            font_size: 20
+            size_hint_y: None
+            height: 50
+        TextInput:
+            id: detail_text_input
+            hint_text: 'Enter task details'
+            multiline: True
+        Button:
+            text: "Save"
+            size_hint_y: None
+            height: 50
+            on_release: 
+                root.save_task_detail()
+        Button:
+            text: "Back"
+            size_hint_y: None
+            height: 50
+            on_release: 
+                app.root.current = "Daily_Screen"
+                root.manager.transition.direction = "right"
